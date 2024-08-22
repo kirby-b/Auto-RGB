@@ -19,11 +19,13 @@ int arr_len = 9;
 #define GREEN3 9
 #define RED3 10
 
+// Holds pins for looping when needed
 int leds[] = {BLUE1,GREEN1,RED1,BLUE2,GREEN2,RED2,BLUE3,GREEN3,RED3};
 
 void setup(){
   pinMode(photoRes, INPUT); // Set photoRes - A0 pin as an input
   for( int i = 0; i < arr_len; ++i ){
+    // Loops through the led pins and sets them all as output and low
     pinMode(leds[i], OUTPUT);
     digitalWrite(led[i], LOW);
   }
@@ -31,6 +33,7 @@ void setup(){
 
 void loop(){
   #define delayTime 10 // fading time between colors
+  // If the photoresistor detects low light, it turns on the leds
   if(checkPhotoRes() == true){
     redValue = 255; // choose a value between 1 and 255 to change the color.
     greenValue = 0;
@@ -39,6 +42,7 @@ void loop(){
     for(int i = 0; i < 255; i += 1) // fades out red bring green full when i=255
     {
       if(checkPhotoRes() == false){
+        // Breaks the loop if the lights are back on
         break;
       }
       redValue -= 1;
@@ -59,6 +63,7 @@ void loop(){
     for(int i = 0; i < 255; i += 1) // fades out green bring blue full when i=255
     {
       if(checkPhotoRes() == false){
+        // Breaks the loop if the lights are back on
         break;
       }
       greenValue -= 1;
@@ -79,6 +84,7 @@ void loop(){
     for(int i = 0; i < 255; i += 1) // fades out blue bring red full when i=255
     {
       if(checkPhotoRes() == false){
+        // Breaks the loop if the lights are back on
         break;
       }
       blueValue -= 1;
@@ -97,12 +103,12 @@ void loop(){
 bool checkPhotoRes(){
   value = analogRead(photoRes);
   
-  // You can change value "25"
+  // returns a value based on light level
   if (value > 25){
-    return true
+    return true;
   }
   else{
-    return false
+    return false;
   }
 
   delay(500); // Small delay
