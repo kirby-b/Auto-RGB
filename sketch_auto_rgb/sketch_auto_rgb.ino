@@ -23,11 +23,11 @@ int arr_len = 9;
 int leds[] = {BLUE1,GREEN1,RED1,BLUE2,GREEN2,RED2,BLUE3,GREEN3,RED3};
 
 void setup(){
-  pinMode(photoRes, INPUT); // Set photoRes - A0 pin as an input
+  Serial.begin(9600);
   for( int i = 0; i < arr_len; ++i ){
     // Loops through the led pins and sets them all as output and low
     pinMode(leds[i], OUTPUT);
-    digitalWrite(led[i], LOW);
+    digitalWrite(leds[i], LOW);
   }
 }
 
@@ -98,19 +98,24 @@ void loop(){
       delay(delayTime);
     }
   }
+  else{
+    for( int i = 0; i < arr_len; ++i ){
+    // Loops through the led pins and sets them all as output and low
+    pinMode(leds[i], OUTPUT);
+    analogWrite(leds[i], 0);
+  }
+  }
 }
 
-bool checkPhotoRes(){
-  value = analogRead(photoRes);
-  
+static bool checkPhotoRes(){
+  int value = analogRead(photoRes);
+
   // returns a value based on light level
-  if (value > 25){
+  if (value < 60){
     return true;
   }
   else{
     return false;
   }
-
-  delay(500); // Small delay
 }
 
