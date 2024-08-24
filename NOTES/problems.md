@@ -1,0 +1,1 @@
+This project relies on you making sure the LEDs dont trigger the light sensor and it should be noted that that the further the photosensor is, the better it works. One solution to this could be adding long m-f wires to the photoresistor to distance it.
